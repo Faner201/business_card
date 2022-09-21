@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'cv_icons.dart';
 
 const _avatar = 'assets/ava.png';
+
+class Links {
+  static const github = 'https://github.com/Faner201';
+  static const telegram = 'https://t.me/Faner201';
+  static const vk = 'https://vk.com/finik69';
+
+  const Links._();
+}
 
 void main() => runApp(const App());
 
@@ -49,11 +60,15 @@ class HomePage extends StatelessWidget {
                                   'Илья Обухов',
                                   style: TextStyle(
                                     fontSize: 20,
+                                    fontFamily: 'Ubuntu',
                                   ),
                                 ),
                                 Text(
                                   'Двфу',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Ubuntu',
+                                  ),
                                 ),
                               ],
                             ),
@@ -66,9 +81,11 @@ class HomePage extends StatelessWidget {
                                 flex: 5,
                                 child: IconButton(
                                   iconSize: 35,
-                                  onPressed: () {},
+                                  onPressed: () => launchUrl(
+                                    Uri.parse(Links.telegram),
+                                  ),
                                   icon: const Icon(
-                                    Icons.cloud_circle,
+                                    CVIcons.telegram,
                                   ),
                                 ),
                               ),
@@ -76,16 +93,20 @@ class HomePage extends StatelessWidget {
                                 flex: 5,
                                 child: IconButton(
                                   iconSize: 35,
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.account_circle),
+                                  onPressed: () => launchUrl(
+                                    Uri.parse(Links.github),
+                                  ),
+                                  icon: const Icon(CVIcons.github),
                                 ),
                               ),
                               Flexible(
                                 flex: 5,
                                 child: IconButton(
                                   iconSize: 35,
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.circle_notifications),
+                                  onPressed: () => launchUrl(
+                                    Uri.parse(Links.vk),
+                                  ),
+                                  icon: const Icon(CVIcons.vkontakte),
                                 ),
                               ),
                               const Spacer(
