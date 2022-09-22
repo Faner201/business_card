@@ -27,109 +27,177 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: AspectRatio(
-            aspectRatio: 1.8,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              elevation: 10.0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Flexible(
-                      flex: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Илья Обухов',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'Ubuntu',
-                                  ),
-                                ),
-                                Text(
-                                  'Двфу',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Ubuntu',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const Spacer(flex: 1),
-                              Flexible(
-                                flex: 5,
-                                child: IconButton(
-                                  iconSize: 35,
-                                  onPressed: () => launchUrl(
-                                    Uri.parse(Links.telegram),
-                                  ),
-                                  icon: const Icon(
-                                    CVIcons.telegram,
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 5,
-                                child: IconButton(
-                                  iconSize: 35,
-                                  onPressed: () => launchUrl(
-                                    Uri.parse(Links.github),
-                                  ),
-                                  icon: const Icon(CVIcons.github),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 5,
-                                child: IconButton(
-                                  iconSize: 35,
-                                  onPressed: () => launchUrl(
-                                    Uri.parse(Links.vk),
-                                  ),
-                                  icon: const Icon(CVIcons.vkontakte),
-                                ),
-                              ),
-                              const Spacer(
-                                flex: 1,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                        flex: 2,
-                        child: Image.asset(
-                          _avatar,
-                          fit: BoxFit.fitHeight,
-                        )),
-                  ],
-                ),
-              ),
+          padding: EdgeInsets.all(15.0),
+          child: CVCard(),
+        ),
+      ),
+    );
+  }
+}
+
+class CVCard extends StatelessWidget {
+  const CVCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CVCardContainer(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          Flexible(
+            flex: 3,
+            child: InfoWidget(),
+          ),
+          Flexible(
+            flex: 2,
+            child: AvatarWidget(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class InfoWidget extends StatelessWidget {
+  const InfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: const [
+        Padding(
+          padding: EdgeInsets.all(14.0),
+          child: IdentityWidget(),
+        ),
+        LinksWidget(),
+      ],
+    );
+  }
+}
+
+class AvatarWidget extends StatelessWidget {
+  const AvatarWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      _avatar,
+      fit: BoxFit.fitHeight,
+    );
+  }
+}
+
+class IdentityWidget extends StatelessWidget {
+  const IdentityWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'Илья Обухов',
+          style: TextStyle(fontSize: 20, fontFamily: 'Ubuntu'),
+        ),
+        Text(
+          'Двфу',
+          style: TextStyle(fontSize: 18, fontFamily: 'Ubuntu'),
+        ),
+      ],
+    );
+  }
+}
+
+class LinksWidget extends StatelessWidget {
+  const LinksWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const Spacer(
+          flex: 1,
+        ),
+        Flexible(
+          flex: 5,
+          child: LinkIcon(
+            icon: CVIcons.telegram,
+            onPressed: () => launchUrl(
+              Uri.parse(Links.telegram),
             ),
           ),
         ),
+        Flexible(
+          flex: 5,
+          child: LinkIcon(
+            icon: CVIcons.github,
+            onPressed: () => launchUrl(
+              Uri.parse(Links.github),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 5,
+          child: LinkIcon(
+            icon: CVIcons.vkontakte,
+            onPressed: () => launchUrl(
+              Uri.parse(Links.vk),
+            ),
+          ),
+        ),
+        const Spacer(
+          flex: 1,
+        ),
+      ],
+    );
+  }
+}
+
+class CVCardContainer extends StatelessWidget {
+  static const _borderRadius = 16.0;
+  final Widget child;
+
+  const CVCardContainer({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1.8,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(_borderRadius),
+        ),
+        elevation: 10.0,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(_borderRadius),
+          child: child,
+        ),
       ),
+    );
+  }
+}
+
+class LinkIcon extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const LinkIcon({Key? key, required this.icon, required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      iconSize: 35,
+      onPressed: onPressed,
+      icon: Icon(icon),
     );
   }
 }
