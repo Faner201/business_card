@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'cv_icons.dart';
+import 'lang.dart';
 
 const _avatar = 'assets/ava.png';
 
@@ -24,23 +26,51 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   var _isDark = false;
+  var _locale = Lang.en;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: Lang.supportedLocales,
+        locale: _locale,
         builder: (context, child) => Material(
           child: Stack(
             children: [
               child ?? const SizedBox.shrink(),
               Align(
                 alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: IconButton(
-                    onPressed: () => setState(() => _isDark = !_isDark),
-                    icon: Icon(
-                      _isDark ? Icons.sunny : Icons.nightlight_round,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(
+                        onPressed: () => setState(() => _isDark = !_isDark),
+                        icon: Icon(
+                          _isDark ? Icons.sunny : Icons.nightlight_round,
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: InkResponse(
+                        child: Text(
+                          _locale.languageCode.toUpperCase(),
+                        ),
+                        onTap: () {
+                          final newLocale =
+                              Lang.isEn(_locale) ? Lang.ru : Lang.en;
+                          setState(() => _locale = newLocale);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -130,14 +160,14 @@ class IdentityWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
-          'Илья Обухов',
-          style: TextStyle(fontSize: 20, fontFamily: 'Ubuntu'),
+          Lang.of(context).name,
+          style: const TextStyle(fontSize: 20, fontFamily: 'Ubuntu'),
         ),
         Text(
-          'Двфу',
-          style: TextStyle(fontSize: 18, fontFamily: 'Ubuntu'),
+          Lang.of(context).company,
+          style: const TextStyle(fontSize: 18, fontFamily: 'Ubuntu'),
         ),
       ],
     );
