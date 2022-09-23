@@ -1,7 +1,11 @@
+import 'package:business_card/components/text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'app_theme.dart';
+import 'components/card_container.dart';
+import 'components/link_icon.dart';
 import 'cv_icons.dart';
 import 'lang.dart';
 
@@ -60,7 +64,7 @@ class _AppState extends State<App> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: InkResponse(
-                        child: Text(
+                        child: AppText(
                           _locale.languageCode.toUpperCase(),
                         ),
                         onTap: () {
@@ -76,7 +80,7 @@ class _AppState extends State<App> {
             ],
           ),
         ),
-        theme: _isDark ? ThemeData.dark() : ThemeData.light(),
+        theme: AppTheme.theme(_isDark),
         home: const HomePage(),
       );
 }
@@ -161,14 +165,8 @@ class IdentityWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          Lang.of(context).name,
-          style: const TextStyle(fontSize: 20, fontFamily: 'Ubuntu'),
-        ),
-        Text(
-          Lang.of(context).company,
-          style: const TextStyle(fontSize: 18, fontFamily: 'Ubuntu'),
-        ),
+        AppTitle(Lang.of(context).name),
+        AppSubtitle(Lang.of(context).company),
       ],
     );
   }
@@ -216,47 +214,6 @@ class LinksWidget extends StatelessWidget {
           flex: 1,
         ),
       ],
-    );
-  }
-}
-
-class CVCardContainer extends StatelessWidget {
-  static const _borderRadius = 16.0;
-  final Widget child;
-
-  const CVCardContainer({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.8,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(_borderRadius),
-        ),
-        elevation: 10.0,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(_borderRadius),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-class LinkIcon extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  const LinkIcon({Key? key, required this.icon, required this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      iconSize: 35,
-      onPressed: onPressed,
-      icon: Icon(icon),
     );
   }
 }
