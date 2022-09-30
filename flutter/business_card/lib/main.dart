@@ -2,6 +2,7 @@ import 'package:business_card/components/text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/services.dart';
 
 import 'app_theme.dart';
 import 'components/card_container.dart';
@@ -19,7 +20,11 @@ class Links {
   const Links._();
 }
 
-void main() => runApp(const App());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(const App());
+}
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
