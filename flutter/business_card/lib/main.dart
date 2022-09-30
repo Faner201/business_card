@@ -53,7 +53,7 @@ class _AppState extends State<App> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: IconButton(
                         onPressed: () => setState(() => _isDark = !_isDark),
                         icon: Icon(
@@ -62,7 +62,7 @@ class _AppState extends State<App> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: InkResponse(
                         child: AppText(
                           _locale.languageCode.toUpperCase(),
@@ -189,6 +189,7 @@ class LinksWidget extends StatelessWidget {
             icon: CVIcons.telegram,
             onPressed: () => launchUrl(
               Uri.parse(Links.telegram),
+              mode: LaunchMode.externalApplication,
             ),
           ),
         ),
@@ -198,6 +199,7 @@ class LinksWidget extends StatelessWidget {
             icon: CVIcons.github,
             onPressed: () => launchUrl(
               Uri.parse(Links.github),
+              mode: LaunchMode.externalApplication,
             ),
           ),
         ),
@@ -207,6 +209,7 @@ class LinksWidget extends StatelessWidget {
             icon: CVIcons.vkontakte,
             onPressed: () => launchUrl(
               Uri.parse(Links.vk),
+              mode: LaunchMode.externalApplication,
             ),
           ),
         ),

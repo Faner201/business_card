@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CVCardContainer extends StatelessWidget {
-  static const _borderRadius = 16.0;
+  static const _borderRadius = 10.0;
   final Widget child;
 
   const CVCardContainer({Key? key, required this.child}) : super(key: key);
